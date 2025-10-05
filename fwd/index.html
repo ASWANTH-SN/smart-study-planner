@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Study Planner</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- icons (lucide) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- main stylesheet (user requested name) -->
+  <link rel="stylesheet" href="styles1.css" />
+  <meta name="description" content="Smart Study Planner - frontend only app with tasks, reminders, progress and export/import.">
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">📘</div>
+        <div>
+          <div class="title">Smart Study Planner</div>
+          <div class="subtitle">Plan • Focus • Achieve</div>
+        </div>
+      </div>
+
+      <div class="top-controls">
+        <input id="searchInput" placeholder="Search tasks or subjects..." aria-label="Search" />
+        <select id="filterPriority" title="Filter by priority">
+          <option value="">All priorities</option>
+          <option value="high">High</option>
+          <option value="normal">Normal</option>
+          <option value="low">Low</option>
+        </select>
+        <button id="btnExport" class="btn">Export</button>
+        <input id="importFile" type="file" accept="application/json" style="display:none" />
+        <button id="btnImport" class="btn ghost">Import</button>
+        <button id="themeToggle" class="iconbtn" title="Toggle theme"><i data-lucide="moon"></i></button>
+        <button id="openModal" class="btn primary">+ New Task</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- left: stats -->
+      <aside class="sidebar">
+        <div class="card">
+          <h3>Overview</h3>
+          <div class="stats">
+            <div class="stat">
+              <div id="statTotal" class="stat-num">0</div>
+              <div class="stat-label">Tasks</div>
+            </div>
+            <div class="stat">
+              <div id="statDone" class="stat-num">0</div>
+              <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat">
+              <div id="statToday" class="stat-num">0</div>
+              <div class="stat-label">Due Today</div>
+            </div>
+          </div>
+
+          <div class="progress-wrap">
+            <svg class="progress" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" class="progress-bg" />
+              <circle cx="60" cy="60" r="52" class="progress-fill" id="progressFill" />
+            </svg>
+            <div class="progress-center" id="progressPct">0%</div>
+          </div>
+
+          <div class="card-actions">
+            <button id="btnClearCompleted" class="btn ghost">Clear Completed</button>
+            <button id="btnDeleteAll" class="btn ghost danger">Delete All</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>Quick Tips</h4>
+          <ol class="tips">
+            <li>Add tasks with due date & priority</li>
+            <li>Use Export to backup your tasks</li>
+            <li>Allow notifications to receive reminders</li>
+          </ol>
+        </div>
+      </aside>
+
+      <!-- center: tasks -->
+      <section class="main-area">
+        <div id="taskList" class="tasks" aria-live="polite"></div>
+      </section>
+
+      <!-- right: details / tools -->
+      <aside class="rightbar">
+        <div class="card">
+          <h4>Pomodoro</h4>
+          <div id="pomTitle" class="muted">Select a task to start</div>
+          <div id="pomTimer" class="pom-timer">25:00</div>
+          <div class="pom-controls">
+            <select id="pomTaskSelect"><option value="">-- Select task --</option></select>
+            <button id="pomStart" class="btn primary">Start</button>
+            <button id="pomStop" class="btn ghost">Stop</button>
+          </div>
+          <small class="muted">Default: 25 min work / 5 min break</small>
+        </div>
+
+        <div class="card">
+          <h4>Import / Export</h4>
+          <p class="muted">Backup or restore tasks using JSON.</p>
+          <div class="card-actions">
+            <button id="btnExport2" class="btn">Export JSON</button>
+            <button id="btnImport2" class="btn ghost" onclick="document.getElementById('importFile').click()">Import JSON</button>
+          </div>
+        </div>
+
+      </aside>
+    </main>
+
+    <footer class="footer">Smart Study Planner • Frontend Demo • Local Storage</footer>
+
+    <!-- Modal (Add/Edit) -->
+    <div id="modal" class="modal" aria-hidden="true">
+      <div class="modal-card">
+        <button id="modalClose" class="modal-close" aria-label="Close"><i data-lucide="x"></i></button>
+        <h2 id="modalTitle">Add Task</h2>
+        <form id="taskForm" class="form">
+          <label>Title <input id="fTitle" required /></label>
+          <label>Subject <input id="fSubject" placeholder="e.g. Mathematics" /></label>
+          <label>Subtasks (comma separated) <input id="fSubtasks" placeholder="Solve Q1, Revise notes" /></label>
+          <label>Due date/time <input id="fDue" type="datetime-local" /></label>
+          <label>Duration (mins) <input id="fDuration" type="number" min="1" /></label>
+          <label>Priority
+            <select id="fPriority">
+              <option value="normal">Normal</option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+          </label>
+          <label>Notes <textarea id="fNotes" rows="3"></textarea></label>
+
+          <div class="form-row">
+            <button type="submit" class="btn primary" id="saveBtn">Save</button>
+            <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script>lucide.createIcons()</script>
+  <script src="app.js"></script>
+</body>
+</html>
