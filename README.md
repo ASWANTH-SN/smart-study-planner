@@ -1,9 +1,9 @@
 # smart-study-planner
 Smart Study Planner
 
-## Live Demo
+## Live Demo##
 
-Check out the live version of this project [here](https://ASWANTH-SN.github.io/smart-study-planner/).
+!!!! Check out the live version of this project [here](https://ASWANTH-SN.github.io/smart-study-planner/). !!!!!!!
 
 Plan • Focus • Achieve
 
