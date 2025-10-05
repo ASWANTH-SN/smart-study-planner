@@ -1,6 +1,10 @@
 # smart-study-planner
 Smart Study Planner
 
+## Live Demo
+
+Check out the live version of this project [here](https://ASWANTH-SN.github.io/smart-study-planner/).
+
 Plan • Focus • Achieve
 
 A modern web-based productivity tool designed to help students organize tasks, set priorities, and track study progress efficiently — powered by smart features like task management, Pomodoro timer, and data persistence using Local Storage.
